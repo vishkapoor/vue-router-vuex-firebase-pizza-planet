@@ -4,7 +4,8 @@
     <Header></Header>
   </div>
   <div class="container">
-    <Home></Home>
+    <!-- <Home></Home> -->
+    <Menu></Menu>
   </div>
   <div class="container">
     <Footer></Footer>
@@ -16,12 +17,15 @@
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 import Home from './components/Home.vue';
+import Menu from './components/Menu.vue';
+
 export default {
   name: "App",
   components: {
     Header,
     Footer,
-    Home
+    Home,
+    Menu
   },
 }
 </script>
