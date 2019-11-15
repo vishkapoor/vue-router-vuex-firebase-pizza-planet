@@ -5,8 +5,9 @@
   </div>
   <div class="container">
     <!-- <Home></Home> -->
-    <Menu></Menu>
-  </div>
+    <!-- <Menu></Menu> -->
+      <Admin></Admin>
+    </div>
   <div class="container">
     <Footer></Footer>
   </div>
@@ -18,6 +19,8 @@ import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 import Home from './components/Home.vue';
 import Menu from './components/Menu.vue';
+import Admin from './components/Admin.vue';
+
 
 export default {
   name: "App",
@@ -25,7 +28,8 @@ export default {
     Header,
     Footer,
     Home,
-    Menu
+    Menu,
+    Admin
   },
 }
 </script>
