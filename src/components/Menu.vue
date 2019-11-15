@@ -51,16 +51,16 @@
                         <td>
                             <button
                                 type="button"
-                                @click=""
+                                @click="decreaseQuantity(item)"
                                 class="btn btn-sm btn-danger">-</button>
                             <strong>{{ item.quantity}}</strong>
                             <button
                                 type="button"
-                                @click=""
+                                @click="increaseQuantity(item)"
                                 class="btn btn-sm btn-success">+</button>
                         </td>
                         <td> {{ item.name }} {{ item.size }}" </td>
-                        <td> &pound;{{ item.price * item.quantity }}  </td>
+                        <td> &pound;{{ (item.price * item.quantity).toFixed(2)}}  </td>
                     </tr>
                 </template>
                 <template v-if="basket.length">
@@ -92,6 +92,7 @@ export default {
             {
                 name: 'Margherita',
                 description: 'Tomato based pizza',
+                quantity: 1,
                 options: [
                     { size: 6, price: 6.95 },
                     { size: 9, price: 8.95 },
@@ -101,6 +102,7 @@ export default {
             {
                 name: 'Peperoni',
                 description: 'Peperoni pizza',
+                quantity: 1,
                 options: [
                     { size: 6, price: 7.95 },
                     { size: 9, price: 9.95 },
@@ -110,6 +112,7 @@ export default {
             {
                 name: 'Spicy Paneer',
                 description: 'Spicy Paneer pizza',
+                quantity: 1,
                 options: [
                     { size: 6, price: 8.95 },
                     { size: 9, price: 9.95 },
@@ -120,12 +123,27 @@ export default {
     };
   },
   methods: {
+    decreaseQuantity(item) {
+        item.quantity--;
+        if(parseFloat(item.quantity) <=0) {
+            this.removeFromBasket(item);
+        }
+    },
+    increaseQuantity(item) {
+        item.quantity++;
+    },
+    removeFromBasket(item) {
+        this.basket.splice(
+            this.basket.indexOf(item),
+            1
+        );
+    },
     addToBasket(item, option) {
         this.basket.push({
             name: item.name,
             price: option.price,
             size: option.size,
-            quantity: 1
+            quantity: item.quantity,
         });
     }
   },
