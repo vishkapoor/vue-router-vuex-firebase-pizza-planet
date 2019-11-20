@@ -58,7 +58,9 @@
     </div>
 
     <div class="form-grouop row">
-        <button class="btn btn-success btn-block" type="button">
+        <button
+            @click="add"
+            class="btn btn-success btn-block" type="button">
             Add
         </button>
     </div>
@@ -81,6 +83,11 @@ export default {
             }
         }
     },
+    methods: {
+        add() {
+
+        }
+    }
 }
 </script>
 <style lang="css" scoped>
