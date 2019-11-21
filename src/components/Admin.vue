@@ -44,9 +44,9 @@
                 <tbody>
                     <tr>
                         <th colspan="4">Order Number: 1
-                            <spam class="pull-right">
+                            <span class="pull-right">
                                 <button class="btn btn-sm btn-outline-danger">x</button>
-                            </spam>
+                            </span>
                         </th>
                     </tr>
                       <tr>
@@ -59,14 +59,22 @@
             </table>
         </div>
     </div>
+    <hr/>
+    <div class="row">
+        <div class="col-sm-12 col-lg-6">
+            <login></login>
+        </div>
+    </div>
 </div>
 </template>
 <script>
 import CreatePizza from './CreatePizza.vue';
+import Login from './Login.vue';
 export default {
   name: 'Admin',
   components: {
-    CreatePizza
+    CreatePizza,
+    Login
   },
   data() {
     return {

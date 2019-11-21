@@ -68,6 +68,8 @@
 </form>
 </template>
 <script>
+import { dbMenu } from '../firebaseConfig';
+
 export default {
     name: 'CreatePizza',
     data() {
@@ -85,7 +87,7 @@ export default {
     },
     methods: {
         add() {
-
+            dbMenu.push(this.form);
         }
     }
 }
