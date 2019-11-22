@@ -4,21 +4,25 @@
         <a class="navbar-brand" href="/">Pizza Planet</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a
-                        href=""
-                        class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a
-                        href=""
-                        class="nav-link">Menu</a>
-                </li>
+                <router-link :to="{ name: 'home'}" tag="li">
+                    <a  class="nav-link">Home</a>
+                </router-link>
+                <router-link :to="{ name: 'menu'}" tag="li">
+                    <a  class="nav-link">Menu</a>
+                </router-link>
             </ul>
         </div>
     </nav>
 </header>
 </template>
+<script>
+export default {
+    data() {
+        return {
+        }
+    }
+}
+</script>
 <style>
 .navbar-brand {
     font-size: 1.5em;

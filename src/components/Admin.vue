@@ -76,9 +76,15 @@ export default {
     CreatePizza,
     Login
   },
+  beforeRouteLeave(to, from, next) {
+    if(confirm('Have you remembered to log out?') == true) {
+        next();
+    } else {
+        next(false);
+    }
+  },
   data() {
     return {
-
     };
   },
 };
