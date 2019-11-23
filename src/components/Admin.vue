@@ -14,24 +14,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th colspan="4">
-                            Order Number: 1
-                        </th>
-                    </tr>
-                    <tr>
-                        <td> Margheria </td>
-                        <td>
-                            <button class="btn btn-outline-danger btn-sm">x</button>
-                        </td>
-                    </tr>
+                    <template v-for="(item, index) in items">
+                        <tr>
+                            <td> {{ item.name }} </td>
+                            <td>
+                                <button class="btn btn-outline-danger btn-sm">x</button>
+                            </td>
+                        </tr>
+                    </template>
                 </tbody>
             </table>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12 col-md-12">
-            <h3>Current Orders</h3>
+            <h3>Current Orders: {{ numberOfOrders }}</h3>
             <table class="table table-sm">
                 <thead class="default">
                     <tr>
@@ -70,6 +67,7 @@
 <script>
 import CreatePizza from './CreatePizza.vue';
 import Login from './Login.vue';
+import { mapGetters } from 'vuex';
 export default {
   name: 'Admin',
   components: {
@@ -77,16 +75,23 @@ export default {
     Login
   },
   beforeRouteLeave(to, from, next) {
-    if(confirm('Have you remembered to log out?') == true) {
-        next();
-    } else {
-        next(false);
-    }
+    // if(confirm('Have you remembered to log out?') == true) {
+    //     next();
+    // } else {
+    //     next(false);
+    // }
+    next();
   },
   data() {
     return {
     };
   },
+  computed: {
+    ...mapGetters({
+        numberOfOrders: 'numberOfOrders',
+        items: 'getItems',
+    }),
+  }
 };
 </script>
 <style lang="css" scoped>

@@ -28,7 +28,7 @@ export const routes = [
       component: Admin,
       name: 'admin',
       beforeEnter: (to, from, next) => {
-        alert('This area is restrictred, please login to continue...');
+       // alert('This area is restrictred, please login to continue...');
         next();
       },
     },

@@ -1,32 +1,44 @@
 <template>
     <div class="row">
-        <form>
-            <div class="form-group">
-                <label>Email: </label>
-                <input
-                    id="email"
-                    placehoder="Enter email"
-                    type="text" class="form-control input-sm" />
-            </div>
+        <div class="col-md-12" v-if="user">
+            <p>Logged in as:  {{ user }}</p>
+        </div>
+        <div class="col-md-12">
+            <form>
                 <div class="form-group">
-                <label>Password: </label>
-                <input
-                    type="password"
-                    id="password"
-                    placehoder="Enter password"
-                    class="form-control input-sm" />
-            </div>
-            <button
-                @click.prevent="signIn"
-                type="button" class="btn btn-primary">Sign In</button>
-            <button
-                @click.prevent="signOut"
-                type="button" class="btn btn-danger">Sign Out</button>
-        </form>
+                    <label>Email: </label>
+                    <input
+                        id="email"
+                        placehoder="Enter email"
+                        type="text" class="form-control input-sm" />
+                </div>
+                    <div class="form-group">
+                    <label>Password: </label>
+                    <input
+                        type="password"
+                        id="password"
+                        placehoder="Enter password"
+                        class="form-control input-sm" />
+                </div>
+                <button
+                    @click.prevent="signIn"
+                    type="button" class="btn btn-primary">Sign In</button>
+                <button
+                    @click.prevent="signOut"
+                    type="button" class="btn btn-danger">Sign Out</button>
+            </form>
+        </div>
     </div>
 </template>
 <script>
 import Firebase from  'firebase';
+import { store } from '../store/index.js';
+import { mapGetters } from 'vuex';
+
+Firebase.auth().onAuthStateChanged(function(user) {
+    store.dispatch('setUser', (user ? user : null));
+});
+
 export default {
   name: 'Login',
   data() {
@@ -50,6 +62,11 @@ export default {
             .then(response => alert('Logged out successfully.'))
             .catch(e => alert('Unknown error occured'));
     }
+  },
+  computed: {
+    ...mapGetters({
+        user: 'getUser'
+    }),
   }
 };
 </script>

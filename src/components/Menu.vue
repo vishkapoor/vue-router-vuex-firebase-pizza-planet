@@ -41,6 +41,14 @@
                 </tr>
             </thead>
             <tbody>
+                <tr v-if="hasOrderPlaced">
+                    <th colspan="3">
+                        <div class="alert alert-success">
+                            Thank you, your order has been placed :)
+                        </div>
+                        {{ orders }}
+                    </th>
+                </tr>
                 <template v-if="!basket.length">
                     <tr>
                         <td colspan="3">No item(s) in the basket</td>
@@ -71,7 +79,9 @@
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <button type="button" class="btn btn-success btn-block">
+                            <button
+                                @click="addOrder"
+                                type="button" class="btn btn-success btn-block">
                                 Place Order
                             </button>
                         </td>
@@ -83,46 +93,22 @@
 </div>
 </template>
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Menu',
   data() {
     return {
         basket: [],
-        items: [
-            {
-                name: 'Margherita',
-                description: 'Tomato based pizza',
-                quantity: 1,
-                options: [
-                    { size: 6, price: 6.95 },
-                    { size: 9, price: 8.95 },
-                    { size: 12, price: 9.99 },
-                ],
-            },
-            {
-                name: 'Peperoni',
-                description: 'Peperoni pizza',
-                quantity: 1,
-                options: [
-                    { size: 6, price: 7.95 },
-                    { size: 9, price: 9.95 },
-                    { size: 12, price: 10.99 },
-                ],
-            },
-            {
-                name: 'Spicy Paneer',
-                description: 'Spicy Paneer pizza',
-                quantity: 1,
-                options: [
-                    { size: 6, price: 8.95 },
-                    { size: 9, price: 9.95 },
-                    { size: 12, price: 12.99 },
-                ],
-            }
-        ]
+        hasOrderPlaced: false,
     };
   },
   methods: {
+    addOrder() {
+        this.$store.dispatch('addOrder', this.basket);
+        this.basket = [];
+        this.hasOrderPlaced = true;
+    },
     decreaseQuantity(item) {
         item.quantity--;
         if(parseFloat(item.quantity) <=0) {
@@ -139,6 +125,7 @@ export default {
         );
     },
     addToBasket(item, option) {
+        this.hasOrderPlaced = false;
         this.basket.push({
             name: item.name,
             price: option.price,
@@ -148,6 +135,10 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+        items: 'getItems',
+        orders: 'getOrders'
+    }),
     basketTotal() {
         let total = 0;
         for(let x = 0; x < this.basket.length; x++) {
