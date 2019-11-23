@@ -5,13 +5,18 @@ import History from './components/History.vue';
 import Contact from './components/Contact.vue';
 import Delivery from './components/Delivery.vue';
 import Admin from './components/Admin.vue';
-
+import OrderingGuide from  './components/OrderingGuide.vue';
 
 export const routes = [
     {
       path: '/',
-      component: Home,
       name: 'home' ,
+      components: {
+        default: Home,
+        'ordering-guide': OrderingGuide,
+        history: History,
+        delivery: Delivery
+      },
     },
     {
       path: '/menu',
