@@ -1,34 +1,36 @@
 <template>
-    <div class="row">
-        <div class="col-md-12" v-if="user">
-            <p>Logged in as:  {{ user }}</p>
-        </div>
-        <div class="col-md-12">
-            <form>
-                <div class="form-group">
-                    <label>Email: </label>
-                    <input
-                        id="email"
-                        placehoder="Enter email"
-                        type="text" class="form-control input-sm" />
-                </div>
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="jumbotron">
+            <div class="col-md-12">
+                <form>
                     <div class="form-group">
-                    <label>Password: </label>
-                    <input
-                        type="password"
-                        id="password"
-                        placehoder="Enter password"
-                        class="form-control input-sm" />
-                </div>
-                <button
-                    @click.prevent="signIn"
-                    type="button" class="btn btn-primary">Sign In</button>
-                <button
-                    @click.prevent="signOut"
-                    type="button" class="btn btn-danger">Sign Out</button>
-            </form>
+                        <label>Email: </label>
+                        <input
+                            id="email"
+                            v-model="email"
+                            placehoder="Enter email"
+                            type="text" class="form-control input-sm" />
+                    </div>
+                        <div class="form-group">
+                        <label>Password: </label>
+                        <input
+                            type="password"
+                            id="password"
+                            v-model="password"
+                            placehoder="Enter password"
+                            class="form-control input-sm" />
+                    </div>
+                    <div style="text-align: center;margin-top:30px">
+                        <button
+                            @click.prevent="signIn"
+                            type="button" class="btn btn-primary">Sign In</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+</div>
 </template>
 <script>
 import Firebase from  'firebase';
@@ -43,14 +45,17 @@ export default {
   name: 'Login',
   data() {
     return {
-
+        email: '',
+        password: '',
     };
   },
   methods: {
     signIn() {
-        let email = document.getElementById('email').value;
-        let password = document.getElementById('password').value;
-        Firebase.auth().signInWithEmailAndPassword(email, password)
+        Firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+            .then(response => {
+                this.$user = this.user;
+                this.$router.push({ name: 'admin'});
+            })
             .catch(e => {
                 let errorCode = e.code;
                 let errorMessage = e.message;
@@ -58,9 +63,9 @@ export default {
             });
     },
     signOut() {
-        Firebase.auth().signOut()
-            .then(response => alert('Logged out successfully.'))
-            .catch(e => alert('Unknown error occured'));
+        // Firebase.auth().signOut()
+        //     .then(response => alert('Logged out successfully.'))
+        //     .catch(e => alert('Unknown error occured'));
     }
   },
   computed: {

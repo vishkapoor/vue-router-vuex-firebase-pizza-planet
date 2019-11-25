@@ -1,11 +1,16 @@
 <template>
 <div id="app">
   <div class="container">
-    <Header></Header>
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <Header></Header>
+      </div>
+    </div>
   </div>
   <div class="container" style="min-height: 100vh">
-    <router-view></router-view>
+      <router-view></router-view>
   </div>
+  <hr/>
   <div class="container">
     <div class="row">
       <div class="col-sm-12 col-md-4">
@@ -26,10 +31,18 @@
 </template>
 
 <script>
+import { dbMenu } from './firebaseConfig.js';
+import { dbOrders } from './firebaseConfig.js';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
+
 export default {
   name: "App",
+  created() {
+    this.$store.dispatch('setMenuRef', dbMenu);
+    this.$store.dispatch('setOrdersRef', dbOrders);
+
+  },
   components: {
     Header,
     Footer,

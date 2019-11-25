@@ -6,6 +6,7 @@ import { store } from  './store/index.js';
 var _ = require('lodash');
 
 Vue.use(VueRouter);
+Vue.prototype.$user = null;
 
 let router = new VueRouter({
     routes,

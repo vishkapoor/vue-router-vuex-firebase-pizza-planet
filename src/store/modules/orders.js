@@ -1,4 +1,9 @@
+import { firebaseAction } from 'vuexfire';
+
 const actions = {
+     setOrdersRef: firebaseAction(( { bindFirebaseRef }, { ref }) => {
+        bindFirebaseRef('orders', ref);
+    }),
     addOrder: ({commit}, order) => {
         commit('ADD_ORDER', order);
     },

@@ -1,5 +1,9 @@
-const actions = {
+import { firebaseAction } from 'vuexfire';
 
+const actions = {
+    setMenuRef: firebaseAction(( { bindFirebaseRef }, { ref }) => {
+        bindFirebaseRef('items', ref);
+    }),
 }
 
 const  mutations = {

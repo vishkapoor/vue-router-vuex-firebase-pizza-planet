@@ -14,3 +14,4 @@ var firebaseConfig = {
 const firebaseApp = Firebase.initializeApp(firebaseConfig);
 const db = firebaseApp.database();
 export const dbMenu = db.ref('menu');
+export const dbOrders = db.ref('orders');

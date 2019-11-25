@@ -94,6 +94,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
+import { dbOrders } from '../firebaseConfig';
 
 export default {
   name: 'Menu',
@@ -105,7 +106,8 @@ export default {
   },
   methods: {
     addOrder() {
-        this.$store.dispatch('addOrder', this.basket);
+        //this.$store.dispatch('addOrder', this.basket);
+        dbOrders.push(this.basket);
         this.basket = [];
         this.hasOrderPlaced = true;
     },
@@ -137,7 +139,6 @@ export default {
   computed: {
     ...mapGetters({
         items: 'getItems',
-        orders: 'getOrders'
     }),
     basketTotal() {
         let total = 0;

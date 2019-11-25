@@ -4,6 +4,7 @@ import About from './components/About.vue';
 import History from './components/History.vue';
 import Contact from './components/Contact.vue';
 import Delivery from './components/Delivery.vue';
+import Login from './components/Login.vue';
 import Admin from './components/Admin.vue';
 import OrderingGuide from  './components/OrderingGuide.vue';
 
@@ -19,6 +20,11 @@ export const routes = [
       },
     },
     {
+      path: '/login',
+      component: Login,
+      name: 'login'
+    },
+    {
       path: '/menu',
       component: Menu,
       name: 'menu'
@@ -27,10 +33,6 @@ export const routes = [
       path: '/admin',
       component: Admin,
       name: 'admin',
-      beforeEnter: (to, from, next) => {
-       // alert('This area is restrictred, please login to continue...');
-        next();
-      },
     },
     {
       path: '/about',
