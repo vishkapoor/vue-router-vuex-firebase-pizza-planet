@@ -4,6 +4,12 @@ import actions from './actions.js';
 import mutations from './mutations.js';
 import state from './state.js';
 import getters from './getters.js';
+
+import menu from './modules/menu';
+import orders from './modules/orders';
+import users from './modules/users';
+
+
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -12,6 +18,8 @@ export const store = new Vuex.Store({
    state,
    getters,
    modules: {
-
+    menu,
+    orders,
+    users
    }
 });
