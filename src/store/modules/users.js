@@ -1,23 +1,40 @@
+import Firebase from  'firebase';
 const actions = {
-    setUser: ({commit}, user) => {
-        commit('SET_USER', user);
+    logIn:  ({commit}, data) => {
+        return new Promise((resolve, reject) => {
+            Firebase.auth().signInWithEmailAndPassword(data.email, data.password)
+            .then(() => resolve())
+            .catch(e => reject(e));
+        });
+    },
+    logOut: ({commit}) => {
+        Firebase.auth().signOut()
+        .then(() => {
+            commit('LOGOUT');
+        })
     }
 }
 
 const  mutations = {
-    'SET_USER': (state, user) => {
-        state.user = user ? user.email : null;
-    },
+    'LOGOUT': (state) => {
+        state.user = null;
+        localStorage.removeItem('user');
+    }
 }
 
+
 const state = {
-     user: null,
+    status: '',
+    user: null,
 }
 
 const getters = {
-    getUser: (state) => {
-        return state.user;
+    isLoggedIn() {
+        return localStorage.getItem('user') ? true : false;
     },
+    getUser: (state) => {
+        return JSON.parse(state.user);
+    }
 }
 
 export default {

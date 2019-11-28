@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 col-sm-12">
-        <Header></Header>
+        <Header key="header"></Header>
       </div>
     </div>
   </div>
@@ -31,17 +31,16 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import { dbMenu } from './firebaseConfig.js';
 import { dbOrders } from './firebaseConfig.js';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
-
 export default {
   name: "App",
   created() {
     this.$store.dispatch('setMenuRef', dbMenu);
     this.$store.dispatch('setOrdersRef', dbOrders);
-
   },
   components: {
     Header,

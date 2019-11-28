@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-    <section v-if="user">
+    <section>
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <create-pizza></create-pizza>
@@ -77,18 +77,6 @@ export default {
     CreatePizza,
     Login
   },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-        if(!vm.user) {
-            vm.$router.push({name: 'login'});
-            return false;
-        }
-        return true;
-    });
-  },
-  mounted() {
-    console.log(this.orders);
-  },
   data() {
     return {
 
@@ -113,7 +101,6 @@ export default {
         numberOfOrders: 'numberOfOrders',
         items: 'getItems',
         orders: 'getOrders',
-        user: 'getUser'
     }),
   }
 };

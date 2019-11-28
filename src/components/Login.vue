@@ -36,46 +36,39 @@
 </div>
 </template>
 <script>
-import Firebase from  'firebase';
 import { store } from '../store/index.js';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
-Firebase.auth().onAuthStateChanged(function(user) {
-    store.dispatch('setUser', (user ? user : null));
-});
 
 export default {
   name: 'Login',
-  data() {
-    return {
-        isSubmitting: false,
-        email: '',
-        password: '',
-    };
-  },
-  methods: {
+    data() {
+        return {
+            isSubmitting: false,
+            email: '',
+            password: '',
+        };
+    },
+    methods: {
+    ...mapActions({
+        logIn: 'logIn',
+    }),
     signIn() {
         this.isSubmitting = true;
-        Firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-            .then(response => {
-                this.$user = this.user;
-                this.$router.push({ name: 'admin'});
+        this.logIn({email: this.email, password: this.password})
+            .then(() => {
+                localStorage.setItem('user', JSON.stringify({email: this.email}));
+                this.$router.push({ name: 'home'});
             })
             .catch(e => {
                 let errorCode = e.code;
                 let errorMessage = e.message;
-               alert('Invalid login credentials\n\nError: ' + errorMessage);
+                localStorage.removeItem('user');
+                alert('Invalid login credentials\n\nError: ' + errorMessage);
             })
-            .finally(() => {
-                this.isSubmitting = false;
-            });
+            .finally(() => this.isSubmitting = false);
     },
   },
-  computed: {
-    ...mapGetters({
-        user: 'getUser'
-    }),
-  }
 };
 </script>
 

@@ -9,8 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 var _ = require('lodash');
 
 Vue.use(VueRouter);
-Vue.prototype.$user = null;
-
 library.add(faCog)
 Vue.component('fa', FontAwesomeIcon)
 
@@ -26,9 +24,22 @@ let router = new VueRouter({
     }
 });
 
+router.beforeEach((to, from, next) => {
+  if (!localStorage.getItem('email')
+    && to.name == 'admin') {
+    next({ name: 'login'});
+  }
+  console.log(localStorage.getItem('user'));
+  next();
+});
+
 new Vue({
   el: '#app',
   router,
   store,
   render: h => h(App)
 })
+
+
+
+

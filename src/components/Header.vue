@@ -16,15 +16,15 @@
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <router-link :to="{ name: 'login'}"
-                v-if="!user"
+                v-if="!isLoggedIn"
                 class="btn btn-outline-success my-2 my-sm-0">
                 Log In
             </router-link>
             <button
-                v-if="user"
-                @click="logOut"
+                v-if="isLoggedIn"
+                @click="signOut"
                 class="btn btn-outline-danger my-2 my-sm-0">
-                Welcome {{ user }}, Logout
+                Welcome {{ user ? user.email: '' }} , Logout
             </button>
         </form>
       </div>
@@ -32,13 +32,8 @@
 </header>
 </template>
 <script>
-import Firebase from  'firebase';
 import { store } from '../store/index.js';
-import {  mapGetters } from 'vuex';
-
-Firebase.auth().onAuthStateChanged(function(user) {
-    store.dispatch('setUser', (user ? user : null));
-});
+import {  mapGetters, mapActions } from 'vuex';
 
 export default {
     data() {
@@ -46,16 +41,23 @@ export default {
         }
     },
     methods: {
-        logOut() {
-            Firebase.auth().signOut()
-                .then(response => this.$router.push({name: 'home'}))
-                .catch(e => alert('Unknown error occured'));
+        ...mapActions({
+            logOut: 'logOut',
+        }),
+        signOut() {
+           this.logOut()
+           .then(() => {
+                localStorage.removeItem('user');
+                this.$router.push({name: 'login'})
+            })
+            .catch(e => alert('Unknown error occured'));
         },
     },
     computed: {
         ...mapGetters({
-            user: 'getUser'
-        })
+            isLoggedIn: 'isLoggedIn',
+            user: 'getUser',
+        }),
     }
 }
 </script>
