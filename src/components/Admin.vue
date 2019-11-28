@@ -77,19 +77,9 @@ export default {
     CreatePizza,
     Login
   },
-  beforeRouteLeave(to, from, next) {
-    // if(confirm('Have you remembered to log out?') == true) {
-    //     next();
-    // } else {
-    //     next(false);
-    // }
-    next();
-  },
   beforeRouteEnter(to, from, next) {
-    alert('hitting admin');
-    console.log(vm.$user);
     next(vm => {
-        if(!vm.$user) {
+        if(!vm.user) {
             vm.$router.push({name: 'login'});
             return false;
         }

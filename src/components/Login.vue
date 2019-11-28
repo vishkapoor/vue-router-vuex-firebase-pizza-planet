@@ -23,8 +23,11 @@
                     </div>
                     <div style="text-align: center;margin-top:30px">
                         <button
+                            :disabled="isSubmitting"
                             @click.prevent="signIn"
-                            type="button" class="btn btn-primary">Sign In</button>
+                            type="button" class="btn btn-primary">
+                            <fa v-if="isSubmitting" icon="cog" spin></fa>
+                        Sign In</button>
                     </div>
                 </form>
             </div>
@@ -45,12 +48,14 @@ export default {
   name: 'Login',
   data() {
     return {
+        isSubmitting: false,
         email: '',
         password: '',
     };
   },
   methods: {
     signIn() {
+        this.isSubmitting = true;
         Firebase.auth().signInWithEmailAndPassword(this.email, this.password)
             .then(response => {
                 this.$user = this.user;
@@ -60,13 +65,11 @@ export default {
                 let errorCode = e.code;
                 let errorMessage = e.message;
                alert('Invalid login credentials\n\nError: ' + errorMessage);
+            })
+            .finally(() => {
+                this.isSubmitting = false;
             });
     },
-    signOut() {
-        // Firebase.auth().signOut()
-        //     .then(response => alert('Logged out successfully.'))
-        //     .catch(e => alert('Unknown error occured'));
-    }
   },
   computed: {
     ...mapGetters({
