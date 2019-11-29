@@ -58,7 +58,7 @@ export default {
         this.logIn({email: this.email, password: this.password})
             .then(() => {
                 localStorage.setItem('user', JSON.stringify({email: this.email}));
-                this.$router.push({ name: 'home'});
+                this.$router.go('/home');
             })
             .catch(e => {
                 let errorCode = e.code;

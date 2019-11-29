@@ -20,12 +20,10 @@
                 class="btn btn-outline-success my-2 my-sm-0">
                 Log In
             </router-link>
-            <button
-                v-if="isLoggedIn"
-                @click="signOut"
-                class="btn btn-outline-danger my-2 my-sm-0">
-                Welcome {{ user ? user.email: '' }} , Logout
-            </button>
+            <span v-if="isLoggedIn">
+                {{ user ? user.email: '' }}
+                <button class="btn btn-sm btn-outline-danger" @click="signOut"> Logout </button>
+            </span>
         </form>
       </div>
     </nav>
@@ -48,7 +46,7 @@ export default {
            this.logOut()
            .then(() => {
                 localStorage.removeItem('user');
-                this.$router.push({name: 'login'})
+                this.$router.push({name: 'home'})
             })
             .catch(e => alert('Unknown error occured'));
         },
@@ -56,8 +54,9 @@ export default {
     computed: {
         ...mapGetters({
             isLoggedIn: 'isLoggedIn',
-            user: 'getUser',
+            user: 'getUser'
         }),
+
     }
 }
 </script>

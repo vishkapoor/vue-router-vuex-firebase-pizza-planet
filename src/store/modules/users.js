@@ -25,7 +25,6 @@ const  mutations = {
 
 const state = {
     status: '',
-    user: null,
 }
 
 const getters = {
@@ -33,7 +32,7 @@ const getters = {
         return localStorage.getItem('user') ? true : false;
     },
     getUser: (state) => {
-        return JSON.parse(state.user);
+        return JSON.parse(localStorage.getItem('user'));
     }
 }
 

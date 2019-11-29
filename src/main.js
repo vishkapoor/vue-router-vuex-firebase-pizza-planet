@@ -25,11 +25,19 @@ let router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (!localStorage.getItem('email')
-    && to.name == 'admin') {
-    next({ name: 'login'});
+
+  if (localStorage.getItem('user')
+    && to.name == 'login') {
+    next({ name: 'home'});
   }
-  console.log(localStorage.getItem('user'));
+
+  if (localStorage.getItem('user') == null
+    && to.name == 'admin') {
+    console.log("in here");
+    next({ name: 'login'});
+    return;
+  }
+
   next();
 });
 
