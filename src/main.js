@@ -45,13 +45,11 @@ Vue.filter('currency', (value) => {
   return Accounting.formatMoney(value);
 });
 
+// Vue.component('global-component', () => import('./components/Menu.vue'));
+
 new Vue({
   el: '#app',
   router,
   store,
   render: h => h(App)
 })
-
-
-
-

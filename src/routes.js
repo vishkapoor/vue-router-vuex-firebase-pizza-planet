@@ -1,12 +1,15 @@
 import Home from './components/Home.vue';
-import Menu from './components/Menu.vue';
-import About from './components/About.vue';
+
+const Menu = () => import('./components/Menu.vue');
+
+const About = () => import(/* webpackChunkName: "footerGroup" */ './components/About.vue');
+const Admin = () => import(/* webpackChunkName: "footerGroup" */ './components/Admin.vue');
+
 import History from './components/History.vue';
 import Contact from './components/Contact.vue';
 import Delivery from './components/Delivery.vue';
 import Login from './components/Login.vue';
-import Admin from './components/Admin.vue';
-import OrderingGuide from  './components/OrderingGuide.vue';
+const OrderingGuide = () => import('./components/OrderingGuide.vue');
 
 export const routes = [
     {
