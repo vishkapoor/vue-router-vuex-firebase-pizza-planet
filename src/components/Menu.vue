@@ -19,7 +19,7 @@
                     </tr>
                     <tr v-for="option in item.options">
                         <td> {{ option.size }}"</td>
-                        <td> &pound;{{ option.price }}</td>
+                        <td> {{ option.price | currency }}</td>
                         <td>
                             <button
                                 type="button"
@@ -68,13 +68,13 @@
                                 class="btn btn-sm btn-success">+</button>
                         </td>
                         <td> {{ item.name }} {{ item.size }}" </td>
-                        <td> &pound;{{ (item.price * item.quantity).toFixed(2)}}  </td>
+                        <td> {{ (item.price * item.quantity) | currency }}  </td>
                     </tr>
                 </template>
                 <template v-if="basket.length">
                     <tr>
                         <td colspan="3">
-                            Order total: &pound;{{ basketTotal }}
+                            Order total: {{ basketTotal | currency }}
                         </td>
                     </tr>
                     <tr>

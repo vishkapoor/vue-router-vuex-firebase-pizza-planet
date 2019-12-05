@@ -6,6 +6,7 @@ import { store } from  './store/index.js';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import Accounting from 'accounting-js';
 var _ = require('lodash');
 
 Vue.use(VueRouter);
@@ -33,12 +34,15 @@ router.beforeEach((to, from, next) => {
 
   if (localStorage.getItem('user') == null
     && to.name == 'admin') {
-    console.log("in here");
     next({ name: 'login'});
     return;
   }
 
   next();
+});
+
+Vue.filter('currency', (value) => {
+  return Accounting.formatMoney(value);
 });
 
 new Vue({

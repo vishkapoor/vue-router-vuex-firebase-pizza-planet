@@ -56,7 +56,7 @@
                             <td> {{ item.name }} </td>
                             <td> {{ item.size }} </td>
                             <td> {{ item.quantity }} </td>
-                            <td> {{ item.price }} </td>
+                            <td> {{ item.price | currency }} </td>
                         </tr>
                     </tbody>
                 </table>
