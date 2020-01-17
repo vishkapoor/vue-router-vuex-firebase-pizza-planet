@@ -3,21 +3,15 @@
     <nav class="navbar navbar-expand-lg navbar-light col-md-12">
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a
-                        href=""
-                        class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a
-                        href=""
-                        class="nav-link">Menu</a>
-                </li>
-                <li class="nav-item">
-                    <a
-                        href=""
-                        class="nav-link">Admin</a>
-                </li>
+                <router-link :to="{ name: 'home'}" tag="li">
+                    <a  class="nav-link">Home</a>
+                </router-link>
+                <router-link :to="{ name: 'about'}" tag="li">
+                    <a  class="nav-link">About</a>
+                </router-link>
+                <router-link :to="{ name: 'admin'}" tag="li">
+                    <a  class="nav-link">Admin</a>
+                </router-link>
             </ul>
         </div>
     </nav>
